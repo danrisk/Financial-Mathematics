@@ -1,0 +1,219 @@
+---
+title: "Métodos de Amortización"
+author: "Danny Morales"
+date: "3/11/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Métodos de Amortización.
+Un Sistema de Amortización es un método a través de la cual un capital cedido en prestamo es reembolsado o pagado mediante un conjunto de cuotas o pagos sucesivos con el objetivo de condonar el capital más una proporción bajo el concepto de interés.
+
+Con frecuencia la especificación de los métodos se basan en definir los elementos que conforma el capital y sus intereses siendo estos componentes fundamentales. Existen muchas formas en la cual un esquema de pago  de prestamos puede ser configurado, cada uno especifica el pago de los intereses y el capital, por tanto vamos a considerar varios métodos de amortización.
+
+la definición y las propiedades básicas de una deuda amortizada puede ser descrita en mejor forma con un ejemplo:
+
+Supóngase un prestamo de 1000 unidades monetarias con una tasa de interés del 10% anual. Este será pagado con 2 cuotas de 200 um cada una, una cuota de 300 um al final del 3er año y el resto al final del 4to año.
+
+Este pago de deuda se puede ver desde el punto de vista del saldo insoluto de la deuda o del punto de vista de la cuota. Nótese que los intereses se calculan con respecto al saldo insoluto de la deuda en el período considerado.
+
+Analicemos este pago de deuda desde ambos elementos alternadamente (saldo insoluto y pago de cuotas)
+
+Antes del pago al final del primer año la deuda es:
+
+$$\begin{array}{rl}
+SI_{0}&\displaystyle=1000(1+10\%)=1000+100=1100\\
+Q_1&\displaystyle=100+100=200\\
+SI_{1}&\displaystyle=900(1+10\%)=900+90=990\\
+Q_2&=90+110=200\\
+SI_{2}&\displaystyle=790(1+10\%)=790+79=869\\
+Q_3&\displaystyle=79+221=300\\
+SI_{3}&\displaystyle=569(1+10\%)=569+56,9=625,9\\
+Q_4&\displaystyle=625,9\\  
+\end{array}$$
+
+Ahora supongamos que la deuda se pagará pactando el monto  y la frecuencia con la que se cancela las cuotas de capital, en el ejemplo las cuatas se cancelarán de la siguiente forma:
+2 cuotas de capital de monto 200 um al final de los dos primeros años y luego 2 cuotas de 300 um al final de los últimos 2 años.
+
+Nótese que las cuotas están compuestas por capital e interés, en este caso debemos determinar la cantidad de interés dado la proporción y la forma en que se amortizará el capital, siempre tomando en consideración que el mismo debe calcularse a partir del saldo insoluto de la deuda en el período correpondiente.
+
+$$\begin{array}{rl}
+Q_t= C_t + I_t=C_t + SI_{t-1}*i
+\end{array}$$  
+
+donde;  
+
+$C_t$: representa las Cuotas de Capital del periódo "t"  
+$I_t$: representa la cuota o cantidad de Intereses del período "t"  
+$SI_t$: representa el Saldo Insoluto de la deuda en el período "t"  
+$i$: representa la Tasa de Interés.    
+
+luego calculamos las cuotas y determinamos los intereses en el mismo cálculo:
+
+$$\begin{array}{rl}
+Q_1&\displaystyle=200+1000*(1+10\%)=200+100=300\\
+Q_2&\displaystyle=200+800*(1+10\%)=200+80=280\\
+Q_3&\displaystyle=300+600*(1+10\%)=300+60=360\\
+Q_4&\displaystyle=300+300*(1+10\%)=300+30=330\\
+\end{array}$$
+
+Nótese que:
+Sea $M$: el capital total de la deuda al inicio o monto del préstamo por convención también se puede denotar como Saldo Insoluto en "cero" entonces:
+
+$$M=SI_{0}=Q_t \sum_{t=1}^{n}V_{i}^{t}$$
+
+donde:  
+$V_{i}^{t}$: es el factor de actualización financiera o $\frac{1}{1+i}$ para el momento "t"
+
+para el ejemplo anterior esto sería:  
+
+$$1000=300V_{0,1}+280V_{0,1}^{2}+360V_{0,1}^{3}+330V_{0,1}^{4}$$  
+
+en el caso de el primer ejemplo la ecuación quedaría:
+
+$$\begin{array}{rl}
+1000&\displaystyle=200V_{0,1}+200V_{0,1}^{2}+300V_{0,1}^{3}+XV_{0,1}^{4}\\
+&\displaystyle \Rightarrow 1000 -[200V_{0,1}+200V_{0,1}^{2}+300V_{0,1}^{3}]=XV_{0,1}^{4}\\
+&\displaystyle \Rightarrow \frac{1000 -[200V_{0,1}+200V_{0,1}^{2}+300V_{0,1}^{3}]}{V_{0,1}^{4}}=X\\
+&\displaystyle \Rightarrow \frac{1000 -200V_{0,1}-200V_{0,1}^{2}-300V_{0,1}^{3}}{V_{0,1}^{4}}=X\\
+&\displaystyle \Rightarrow X=625,9
+\end{array}$$
+
+
+Este cálculo lo vamos a verificar en R construyendo una funcion para el factor de actualización financiera cuyos parámetros sean el monto, tasa de interes y el número de períodos a considerar.
+
+```{r}
+## to do ejemplo
+```
+
+nótese que a pesar de que el flujo de efectivo es distinto,  el valor actual es igual en ambos cásos, analicémos ahora a través de un esquema representativo de los elementos de amortización de deuda dicho esquema se denomina __Tabla de Amortización__, entonces:
+
+Ejemplo 1
+
+TO DO
+
+Ejemplo 2
+
+En el gráfico se aprecia la velocidad con la que el pago es amortizado, nóte que cuando los pagos de capital son mayores la deuda es amortizada más velozmente y se cancelan menos intereses (linea azul), por el contrario si se amortiza el capital más lenta o conservadoramente se amortiza de forma más costosa  o sea se pagan más intereses sobre el mismo valor de capital.  
+
+luego definiremos en términos genéricos todos los elementos de la deuda
+
+$$\begin{array}{rl}
+I_t\displaystyle&= SI_{t-1}*i\\
+C_t\displaystyle&= Q_t-I_t=Q_t-SI_{t-1}*i\\
+SI_t\displaystyle&=SI_{t-1}-(Q_t-SI_{t-1}*i)
+\end{array}$$  
+
+para $n=1$  
+
+$$SI_1=SI_0-(Q_1-SI_0*i)=SI_0-(Q_1-I_1)=SI_0-C_1$$
+
+para $n=2$  
+
+$$SI_2=SI_1-(Q_2-SI_1*i)=SI_1-(Q_2-I_2)=SI_1-C_2$$  
+
+para $n=n$
+
+$$SI_n=SI_{n-1}-(Q_n-SI_{n-1}*i)=SI_{n-1}-(Q_n-I_n)=SI_{n-1}-C_n$$
+
+De esta manera podemos definir la tabla de amortización de forma genérica
+
+De esta manera podemos definir la tabla de amortización de forma genérica
+
+| Períodos (t) | Cuotas Total |     Intereses    | Cuota Capital |     Saldo Insoluto    |
+|--------------|:------------:|:----------------:|:-------------:|:---------------------:|
+|       0      |       -      |         -        |       -       |       $M=SI_{0}$      |
+|       1      |     $Q_1$    |  $I_1=SI_{0}*i$  | $C_1=Q_1-I_1$ |  $SI_{1}=SI_{0}-C_1$  |
+|       2      |     $Q_2$    |  $I_2=SI_{1}*i$  | $C_2=Q_2-I_2$ |  $SI_{2}=SI_{1}-C_2$  |
+|   $\vdots$   |   $\vdots$   |     $\vdots$     |    $\vdots$   |        $\vdots$       |
+|       t      |     $Q_t$    | $I_t=SI_{t-1}*i$ | $C_t=Q_t-I_t$ | $SI_{t}=SI_{t-1}-C_t$ |
+|   $\vdots$   |   $\vdots$   |     $\vdots$     |    $\vdots$   |        $\vdots$       |
+|       n      |     $Q_n$    | $I_n=SI_{n-1}*i$ | $C_n=Q_n-I_n$ |           0           |
+
+### Métodos para el Cálculo del Saldo Insoluto.
+
+### Métodos para el Cálculo del Saldo Insoluto.
+
+#### Forma Retrospectiva.
+
+El Saldo Insoluto en términos retrospectivos se define como la diferencia del valor acumulado financieramente del monto de la deuda y las cuotas que se han cancelado hasta el momento del cálculo.
+
+$$\begin{array}{rl}
+SI_1 \displaystyle&=SI_0(1+i)-Q_1\\
+SI_2 \displaystyle&=SI_1(1+i)-Q_2\\
+\displaystyle&=[SI_0(1+i)-Q_1](1+i)-Q_2\\
+\displaystyle&=SI_0(1+i)^2-Q_1(1+i)-Q_2\\
+\displaystyle& \vdots\\
+SI_t\displaystyle&=SI_{t-1}(1+i)-Q_t\\
+\displaystyle&=SI_0(1+i)^t- Q_1(1+i)^{t-1}-Q_2(1+i)^{t-2}- \cdots - Q_{t-1}(1+i)-Q_t\\
+SI_n\displaystyle&=SI_{n-1}(1+i)-Q_n\\
+\displaystyle&=SI_0(1+i)^n- Q_1(1+i)^{n-1}-Q_2(1+i)^{n-2}- \cdots - Q_{n-1}(1+i)-Q_t=0\\
+\end{array}$$  
+
+para el ejemplo propuesto vamos a calcular el saldo insoluto por el método retrospectivopara el 3er año de la deuda:
+
+$$\begin{array}{rl}
+SI_{3}^R\displaystyle&=1000(1+10\%)^3-200(1+10\%)^2-200(1+10\%)-300\\
+SI_{3}^R\displaystyle&=1000*1,331-200*1,21-200*1,10-300\\
+SI_{3}^R\displaystyle&=1331-242-220-300=569
+\end{array}$$
+
+#### Forma Prospectiva
+
+la forma prospectiva consiste en determinar el valor actual de las cuotas o pagos pendientes en el instante de la evaluación.
+
+$$\begin{array}{rl}
+SI_t=Q_{t+1}V + Q_{t+2}V^2 + Q_{t+3}V^3+ \cdots + Q_{n}V^{n-t} 
+\end{array}$$
+
+a forma prospectiva consiste en determinar el valor actual de las cuotas o pagos pendientes en el instante de la evaluación.
+
+$$\begin{array}{rl}
+SI_t=Q_{t+1}V + Q_{t+2}V^2 + Q_{t+3}V^3+ \cdots + Q_{n}V^{n-t} 
+\end{array}$$
+
+en el ejemplo propuesto calcularemos el saldo insoluto por el método prospectivo al final del 2do año.
+
+$$\begin{array}{rl}
+SI_{2}^P\displaystyle&=360V + 330V^2=360*0,9+330*0,8264\\
+SI_{2}^p\displaystyle&=327,27+272,7=600\\
+\end{array}$$
+
+Nótese que ambas formas son equivalentes.
+
+Demostración:
+
+partimos desde la ecuación general de pago amortizado
+
+$$SI_0=Q_1V+Q_2V^2+Q_3V^3+ \cdots + Q_nV^n$$
+
+y la forma retrospectiva.
+
+$$\begin{array}{rl}
+SI_{t}^R=SI_0(1+i)^t- Q_1(1+i)^{t-1}-Q_2(1+i)^{t-2}- -\cdots - Q_{t-1}(1+i)-Q_t
+\end{array}$$
+
+luego sustituimos $SI_0$
+
+$$SI_{t}=[Q_1V+Q_2V^2+Q_3V^3+ \cdots + Q_nV^n](1+i)^t- Q_1(1+i)^{t-1}-Q_2(1+i)^{t-2}- -\cdots - Q_{t-1}(1+i)-Q_t$$
+
+observe que: 
+
+$$V*(1+i)^t= \frac{1}{1+i}*(1+i)^t=(1+i)^{t-1}$$
+
+luego
+
+$$\begin{array}{rl}
+SI_{t}\displaystyle&=Q_1(1+i)^{t-1}+Q_2(1+i)^{t-2}+ \cdots + Q_{t+1}V+Q_{t+2}V^2+ \cdots + Q_n(1+i)^{n-t}-Q_1(1+i)^{t-1}-Q_2(1+i)^{t-2}- -\cdots - Q_{t-1}(1+i)-Q_t\\
+SI_{t}\displaystyle&=Q_{t+1}V+Q_{t+2}V^2+ \cdots + Q_n(1+i)^{n-t}
+\end{array}$$
+
+### Sistemas de Amortización.  
+#### Método Francés o Método de la Cuota Nivelada.  
+
+Supongamos que tenemos una deuda de monto $M$, que se va a pagar con cuotas iguales al final del período por $n$ períodos a tasa $i$.
+
+Por convención $M=SI_0$ y $Q_1=Q_2= \cdots = Q_n$
