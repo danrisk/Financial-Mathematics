@@ -121,10 +121,8 @@ $$SI_n=SI_{n-1}-(Q_n-SI_{n-1}*i)=SI_{n-1}-(Q_n-I_n)=SI_{n-1}-C_n$$
 
 De esta manera podemos definir la tabla de amortización de forma genérica
 
-De esta manera podemos definir la tabla de amortización de forma genérica
-
 | Períodos (t) | Cuotas Total |     Intereses    | Cuota Capital |     Saldo Insoluto    |
-|--------------|:------------:|:----------------:|:-------------:|:---------------------:|
+|:--------------:|:------------:|:----------------|:-------------|:---------------------|
 |       0      |       -      |         -        |       -       |       $M=SI_{0}$      |
 |       1      |     $Q_1$    |  $I_1=SI_{0}*i$  | $C_1=Q_1-I_1$ |  $SI_{1}=SI_{0}-C_1$  |
 |       2      |     $Q_2$    |  $I_2=SI_{1}*i$  | $C_2=Q_2-I_2$ |  $SI_{2}=SI_{1}-C_2$  |
@@ -132,8 +130,6 @@ De esta manera podemos definir la tabla de amortización de forma genérica
 |       t      |     $Q_t$    | $I_t=SI_{t-1}*i$ | $C_t=Q_t-I_t$ | $SI_{t}=SI_{t-1}-C_t$ |
 |   $\vdots$   |   $\vdots$   |     $\vdots$     |    $\vdots$   |        $\vdots$       |
 |       n      |     $Q_n$    | $I_n=SI_{n-1}*i$ | $C_n=Q_n-I_n$ |           0           |
-
-### Métodos para el Cálculo del Saldo Insoluto.
 
 ### Métodos para el Cálculo del Saldo Insoluto.
 
@@ -206,14 +202,190 @@ $$V*(1+i)^t= \frac{1}{1+i}*(1+i)^t=(1+i)^{t-1}$$
 
 luego
 
-$$\begin{array}{rl}
-SI_{t}\displaystyle&=Q_1(1+i)^{t-1}+Q_2(1+i)^{t-2}+ \cdots + Q_{t+1}V+Q_{t+2}V^2+ \cdots + Q_n(1+i)^{n-t}-Q_1(1+i)^{t-1}-Q_2(1+i)^{t-2}- -\cdots - Q_{t-1}(1+i)-Q_t\\
-SI_{t}\displaystyle&=Q_{t+1}V+Q_{t+2}V^2+ \cdots + Q_n(1+i)^{n-t}
+$$\begin{array}{l}
+SI_{t}=Q_1(1+i)^{t-1}+Q_2(1+i)^{t-2}+ \cdots + Q_{t+1}V+Q_{t+2}V^2+ \cdots + Q_n(1+i)^{n-t}\\-Q_1(1+i)^{t-1}-Q_2(1+i)^{t-2}- -\cdots - Q_{t-1}(1+i)-Q_t\\
+SI_{t}=Q_{t+1}V+Q_{t+2}V^2+ \cdots + Q_n(1+i)^{n-t}
 \end{array}$$
 
-### Sistemas de Amortización.  
+## Sistemas de Amortización. 
+
 #### Método Francés o Método de la Cuota Nivelada.  
 
 Supongamos que tenemos una deuda de monto $M$, que se va a pagar con cuotas iguales al final del período por $n$ períodos a tasa $i$.
 
 Por convención $M=SI_0$ y $Q_1=Q_2= \cdots = Q_n$
+
+$$\begin{chronology}[1]{0}{10}{\textwidth}
+         \event[0]{0}{M=SI0}
+         \event[1]{1}{Q}
+         \event[2]{2}{Q}
+         \event[3]{3}{Q}
+         \event[4]{4}{Q}
+         \event[5]{5}{Q}
+         \event[6]{6}{Q}
+         \event[7]{7}{Q}
+         \event[8]{8}{Q}
+         \event[9]{9}{Q}
+         \event[10]{10}{Q}
+      \end{chronology}$$
+
+
+$$M=SI_0=Q[V + V^2 + V^3 + \cdots + V^n]=Q\ax{\angl{n}}$$
+
+Saldo Insoluto por el método prospectivo es igual a:
+
+$$\begin{array}{rl}
+SI_{1}^P\displaystyle&=Q[V + V^2 + V^3 + \cdots + V^{n-1}]=Q\ax{\angl{n-1}}\\
+SI_{2}^P\displaystyle&=Q[V + V^2 + V^3 + \cdots + V^{n-2}]=Q\ax{\angl{n-2}}\\
+\displaystyle& \vdots\\
+SI_{t}^P\displaystyle&=Q[V + V^2 + V^3 + \cdots + V^{n-t}]=Q\ax{\angl{n-t}}
+\end{array}$$  
+
+Saldo Insoluto por el método retrospectivo:  
+
+$$\begin{array}{rl}
+SI_{1}^R\displaystyle&=SI_0(1+i)-0\\
+SI_{2}^R\displaystyle&=SI_1(1+i)-Q[1 + (1+i)]=SI_1(1+i)-Q\sx**{\angl{2}}\\
+\displaystyle& \vdots\\
+SI_{t}^R\displaystyle&=SI_{t-1}(1+i)-Q[1 + (1+i) +(1+i)^2 + \cdots + (1+i)^{t}]=SI_{t-1}(1+i)-Q\sx{\angl{t}}\\
+\end{array}$$  
+
+Intereses o cuotas de interés  
+
+$$\begin{array}{rl}
+I_1\displaystyle&=SI_{0}*i=Q[V + V^2 + V^3 + \cdots + V^n]*i=Q\left[\frac{1-V^n}{i}\right]*i\\
+\displaystyle&=Q\ax{\angl{n}}*i=Q[1-V^{n}]\\
+I_2\displaystyle&=SI_{1}*i=Q[V + V^2 + V^3 + \cdots + V^n]*i=Q\left[\frac{1-V^{n-1}}{i}\right]*i\\
+\displaystyle&=Q\ax{\angl{n-1}}*i=Q[1-V^{n-1}]\\
+\displaystyle& \vdots\\
+I_t\displaystyle&=SI_{t-1}*i=Q[V + V^2 + V^3 + \cdots + V^{n-(t-1)}]*i=Q\left[\frac{1-V^{n-(t-1)}}{i}\right]*i\\
+\displaystyle&=Q\ax{\angl{n-(t-1)}}*i=Q[1-V^{n-(t-1)}]\\
+\displaystyle& \vdots\\
+I_n\displaystyle&=SI_{n-1}*i=QV*i=Q\left[\frac{1-V}{i}\right]*i\\
+\displaystyle&=Q\ax{\angl{1}}*i=Q[1-V]
+\end{array}$$
+
+De esta formulación se deduce el cálculo del total de intereses que es la suma de todas las cuotas de interés.
+
+$$I_T=Q[(1-V^{n})+ (1-V^{n-1}) + \cdots + (1-v)]$$
+
+ahora vamos a determinar la cuota de capital
+
+tenemos que $Q=C+I$ luego despejando obtenemos $C=Q-I$ entonces podemos formular las cuotas de la siguiente manera.
+
+$$\begin{array}{rl}
+C_1\displaystyle&=Q-I_1=Q-Q[1-V^{n}]=QV^n\\
+C_2\displaystyle&=Q-I_2=Q-Q[1-V^{n-1}]=QV^{n-1}\\
+\displaystyle& \vdots\\
+C_t\displaystyle&=Q-I_t=Q-Q[1-V^{n-(t-1)}]=QV^{n-(t-1)}\\
+\displaystyle& \vdots\\
+C_n\displaystyle&=Q-I_n=Q-Q[1-V]=QV
+\end{array}$$  
+
+Una vez obtenidos todos estos elementos podemos elaborar la tabla de amortización bajo este sistema. 
+
+#TO DO
+
+#### Método Alemán
+
+Bajo este sistema la característica principal es que la cuota de capital son iguales o niveladas lo que implica que la cuota total a pagar (capital + intereses) es decreciente.
+
+El monto total de la deuda se obtiene multiplicando el número de cuotas de capital por el término de la deuda.
+
+$$\begin{chronology}[1]{0}{10}{\textwidth}
+         \event[0]{0}{M=SI0}
+         \event[1]{1}{Q1=C+I1}
+         \event[2]{2}{C}
+         \event[3]{3}{C}
+         \event[4]{4}{C}
+         \event[5]{5}{C}
+         \event[6]{6}{C}
+         \event[7]{7}{C}
+         \event[8]{8}{C}
+         \event[9]{9}{C}
+         \event[10]{10}{C}
+      \end{chronology}$$
+
+
+$$\begin{array}{rl}
+M=SI_0\displaystyle&=n*C\\
+\Rightarrow\displaystyle&C=\frac{SI_0}{n}
+\end{array}$$
+
+Saldo Insoluto se calcula:
+
+$$\begin{array}{rl}
+SI_{0}\displaystyle&=nC\\
+SI_{1}\displaystyle&=SI_0 - C\\
+SI_{2}\displaystyle&=SI_0 - 2C\\
+\displaystyle& \vdots\\
+SI_{t}\displaystyle&=SI_0 - tC\\
+\displaystyle& \vdots\\
+SI_{n-1}\displaystyle&=SI_0 - (n-1)C\\
+SI_{n}\displaystyle&=SI_0 - nC=nC-nC=0
+\end{array}$$  
+
+luego la Cuota de Intereses es:
+
+$$\begin{array}{rl}
+I_1\displaystyle&=SI_{0}*i\\
+I_2\displaystyle&=SI_{1}*i=[SI_0-C]*i=\left[SI_0-\frac{SI_0}{n}\right]*i\\
+\displaystyle&=\left[\frac{n-1}{n}\right]SI_0*i\\
+I_3\displaystyle&=SI_{2}*i=[SI_0-2C]*i=\left[SI_0-2\frac{SI_0}{n}\right]*i\\
+\displaystyle&=\left[\frac{n-2}{n}\right]SI_0*i\\
+\displaystyle& \vdots\\
+I_t\displaystyle&=SI_{t-1}*i=[SI_0-tC]*i=\left[SI_0-t\frac{SI_0}{n}\right]*i\\
+\displaystyle&=\left[\frac{n-t}{n}\right]SI_0*i\\
+\displaystyle& \vdots\\
+I_{n-1}\displaystyle&=SI_{n-2}*i=[SI_0-(n-2)C]*i=\left[SI_0-(n-2)\frac{SI_0}{n}\right]*i\\
+\displaystyle&=\left[\frac{2}{n}\right]SI_0*i\\
+I_{n}\displaystyle&=SI_{n-1}*i=[SI_0-(n-1)C]*i=\left[SI_0-(n-1)\frac{SI_0}{n}\right]*i\\
+\displaystyle&=\left[\frac{1}{n}\right]SI_0*i
+\end{array}$$
+
+Y de esta forma podemos obtener la suma del total de intereses de la operación.
+
+$$\begin{array}{rl}
+I_T\displaystyle&=\sum_{t=1}^{n}I_t\\
+\displaystyle&=\sum_{t=1}^{n}\left[\frac{n-t+1}{n}\right]SI_0*i\\
+\displaystyle&=\left[\frac{SI_0*i}{n}\right]\sum_{t=1}^{n}(n-t+1)\\
+\displaystyle&=\left[\frac{SI_0*i}{n}\right](n + (n-1) + (n-2) + \cdots + 2 + 1)\\
+\displaystyle&=\left[\frac{SI_0*i}{n}\right]\left[\frac{n(n-1)}{2}\right] \\
+I_T\displaystyle&=\left[\frac{n-1}{2}\right]SI_0*i
+\end{array}$$
+
+Tabla de Amortización
+
+## TO DO
+
+#### Método Americano o Método del Fondo de Amortización.
+
+Este sistema consiste en una deuda de un número de $n$ pagos en la cual sólo se cancelan los intereses a tasa $i$ durante los $n-1$ períodos, luego al final en el pago $n$ se cancelan la última cuota de interés más todo el capital. Por otra parte, como estrategia financiera el deudor decide depositar en una cuenta (o fondo) una cantidad $Q$ a tasa $j$ tal que logre capitalizar la cantidad solicitada para asumir el compromiso al final de la deuda.
+
+El saldo Insoluto de la deuda está formulado de la siguiente manera:
+
+$$\begin{array}{rl}
+SI_{0}\displaystyle&=M\\
+SI_{1}\displaystyle&=SI_0 - C_1=SI_0 - 0\\
+SI_{2}\displaystyle&=SI_0 - C_2=SI_0 - 0\\
+\displaystyle& \vdots\\
+SI_{n}\displaystyle&=SI_{n-1} - C_n=SI_0 - SI_0=0
+\end{array}$$
+
+la Cuota de l fonde de amortización viene dada por:
+
+$$Q\sx{\angl{n}}j=SI_0 \Rightarrow Q= \frac{SI_0}{\sx{\angl{n}}j}$$
+
+Nótese que:
+
+$i$: Tasa de Interés Remunerativa (Tasa Activa).  
+$j$: Tasa de Interés Reproductiva (Tasa Pasiva).
+
+ahora calculemos la cuota $K$ que es el total de desembolso mensual considerando el pago de intereses y el depósito del fondo.
+
+$$\begin{array}{rl}
+K_1\displaystyle&=I+Q=M*i + \frac{M}{\sx{\angl{n}}j}=SI_0\left[i+\frac{1}{\sx{\angl{n}}j}\right]\\
+K_2\displaystyle&=I+Q=M*i + \frac{M}{\sx{\angl{n}}j}=SI_0\left[i+\frac{1}{\sx{\angl{n}}j}\right]\\
+\displaystyle& \vdots\\
+K_n\displaystyle&=I+Q+M=M*i + \frac{M}{\sx{\angl{n}}j}+M=SI_0\left[1+i+\frac{1}{\sx{\angl{n}}j}\right]\\
+\end{array}$$
