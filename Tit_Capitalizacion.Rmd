@@ -1,0 +1,323 @@
+---
+title: "Títulos de Capitalización"
+author: "Danny Morales"
+date: "3/24/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Títulos de Capitalización
+
+Es un instrumento financiero emitido por una empresa mercantil o sociedad de capitalización, mediante el cual una persona se compromete a pagar a la sociedad de capitalización un pago o prima, bien sea, unica o sucesiva, durante el período de vigencia del título o un tiempo menor. La sociedad de capitalización por su parte, se compromete a entregarle al tenedor del título una varias sumas de dinero en fechas predeterminadas.
+
+Por motivos didácticos vamos a estudiar los 5 casos principales a través de ejemplos de títulos y compromisos.
+
+## Primas y Ecuaciones de Equilibrio.
+
+Supongamos que una sociedad de capitalización se compromete a pagar 1 UM al final del año $n$ y por su parte, el tenedor del título se compromete a pagar una prima única.
+
+$$\begin{chronology}[1]{0}{1}{\textwidth}
+         \event[1]{1}{1}
+      \end{chronology}$$
+
+#### Caso 1
+
+Denotamos: 
+
+$\Ax{\angln}$: Prima Única de un Título de Capitalización de duración $n$ años.
+
+Ecuación de Equilibrio Financiero
+
+Prospectivo
+
+$$\Ax{\angln}=V^{n}$$
+
+Retrospectivo
+
+$$\Ax{\angln}(1+i)^{n}=1$$
+
+#### Caso 2
+
+En este caso se pagan primas anuales anticipadas por todo el período de vigencia  del título.
+
+
+$\Px{\angln}$: Prima Anual Anticipada durante $n$ años.
+
+Prospectivo
+
+$$\Px{\angln}\ax**{\angln}= V^{n}$$
+
+Retrospectivo
+
+$$\Px{\angln}\sx**{\angln}= 1$$
+
+Prima
+
+$$\Px{\angln}=\frac{V^{n}}{\ax**{\angln}}=\frac{1}{\sx**{\angln}}$$
+
+#### Caso 3
+
+Se pagan primas anuales anticipadas durante $m$ años en un título de capitalización que dura $n$ años, además $m < n$.
+
+*TODO recta*
+
+$\Px[m]{\angl{n}}$: Prima Anual Anticipada pagadera durante $m$ años en un título de duración $n$ años.
+
+Prospectivo.
+$$\Px[m]{\angl{n}}\ax**{\angl{m}}=V^{n}$$
+
+Retrospectivo.
+
+$$\Px[m]{\angl{n}}\sx**{\angl{m}}(1+i)^{n-m}=1$$
+
+
+Prima.
+
+$$\Px[m]{\angl{n}}=\frac{V^{n}}{\ax**{\angl{m}}}=\frac{1}{\sx**{\angl{m}}(1+i)^{n-m}}$$
+
+
+#### Caso 4.
+
+Primas anticipadas pagaderas $k$-veces al año en un título de duración $n$ años.
+
+*TODO recta*
+
+$\Px{\angln}[(k)]$: Prima Anual Anticipada pagadera $k$-veces al año en un título de capitalización de $n$ años.
+
+Prospectivo.
+
+$$(k)\Px{\angln}[(k)]\ax**{\angl{n}}[(k)]= V^{n}$$
+
+Retrospectivo.
+
+$$(k)\Px{\angln}[(k)]\sx**{\angl{n}}[(k)]=1$$
+
+
+Prima.
+
+$$\Px{\angln}[(k)]= \frac{V^{n}}{(k)\ax**{\angl{n}}[(k)]}= \frac{1}{(k)\sx**{\angl{n}}[(k)]}$$
+
+
+
+#### Caso 5.
+
+Primas anticipadas pagaderas $k$-veces al año durante $m$ años en un título de duración $n$ años.
+
+*TODO recta*
+
+$\Px[m]{\angln}[(k)]$: Prima Anual Anticipada pagadera $k$-veces al año durante $m$ años en un título de capitalización de $n$ años.
+
+Prospectivo.
+
+$$(k)\Px[m]{\angln}[(k)]\ax**{\angl{m}}[(k)]= V^{n}$$
+
+Retrospectivo.
+
+$$(k)\Px[m]{\angln}[(k)]\sx**{\angl{m}}[(k)](1+i)^{n-m}=1$$
+
+
+Prima.
+
+$$\Px[m]{\angln}[(k)]= \frac{V^{n}}{(k)\ax**{\angl{m}}[(k)]}= \frac{1}{(k)\sx**{\angl{m}}[(k)]}(1+i)^{n-m}$$
+
+
+## Reservas de un Título de Capitalización.
+
+La reserva de un Título de Capitalización es un fondo acumulado que corresponde a cada título con el objetivo de garantizar el cumplimiento de los compromisos con los tenedores de los títulos.
+
+### Métodos para el cálculo de las Reservas
+
+
+#### Método Prospectivo.
+
+La reserva por el método prospectivo, se define como la diferencia matemática entre el valor actual de los compromisos de la sociedad de capitalizacion en un punto $t$ y el valor actual de los compromisos del tenedor del título.
+
+#### Método Retrospectivo.
+
+Es la diferencia  matemática entre el valor acumulado de las primas efectuadas por el tenedor en un momento $t$ y el valor acumulado de los pagos efectuados por la Sociedad de Capitalización.
+
+a continuación mostramos la reserva para cada caso:
+
+#### Caso 1
+
+Método Prospectivo
+
+$$\begin{array}{l}
+\Vx[0]{}=0 \\
+\Vx[1]{}=V^{n-1}-0\\
+\Vx[2]{}=V^{n-2}-0\\
+\vdots\\
+\Vx[t]{}=V^{n-t}-0\\
+\vdots\\
+\Vx[n]{}=V^{n-n}=1\\
+\end{array}$$
+
+Método Retrospectivo
+
+$$\begin{array}{l}
+\Vx[0]{}=0 \\
+\Vx[1]{}=\Ax{\angln}(1+i)-0\\
+\Vx[2]{}=\Ax{\angln}(1+i)^{2}-0\\
+\vdots\\
+\Vx[t]{}=\Ax{\angln}(1+i)^{t}-0\\
+\vdots\\
+\Vx[n]{}=\Ax{\angln}(1+i)^{n}=1\\
+\end{array}$$
+
+#### Caso 2
+
+Método Prospectivo
+
+$$\begin{array}{l}
+\Vx[0]{}=0 \\
+\Vx[1]{}=V^{n-1}-\Px{\angln}\ax**{\angl{n-1}}\\
+\Vx[2]{}=V^{n-2}-\Px{\angln}\ax**{\angl{n-2}}\\
+\vdots\\
+\Vx[t]{}=V^{n-t}-\Px{\angln}\ax**{\angl{n-t}}\\
+\vdots\\
+\Vx[n]{}=V^{n-n}-\Px{\angln}\ax**{\angl{n-n}}\\
+\end{array}$$
+
+Método Retrospectivo
+
+$$\begin{array}{l}
+\Vx[0]{}=0 \\
+\Vx[1]{}=\Px{\angln}\sx**{\angl{1}}\\
+\Vx[2]{}=\Px{\angln}\sx**{\angl{2}}\\
+\vdots\\
+\Vx[t]{}=\Px{\angln}\sx**{\angl{t}}\\
+\vdots\\
+\Vx[n]{}=\Px{\angln}\sx**{\angl{n}}\\
+\end{array}$$
+
+#### Caso 3
+
+Método Prospectivo
+
+$$\begin{array}{l}
+0<t\leq m\\
+\\
+\Vx[0]{}=0 \\
+\Vx[1]{}=V^{n-1}-\Px[m]{\angln}\ax**{\angl{m-1}}\\
+\Vx[2]{}=V^{n-2}-\Px[m]{\angln}\ax**{\angl{m-2}}\\
+\vdots\\
+\Vx[t]{}=V^{n-t}-\Px[m]{\angln}\ax**{\angl{m-t}}\\
+\vdots\\
+\Vx[n]{}=V^{n-n}-\Px[m]{\angln}\ax**{\angl{m-n}}\\
+\end{array}$$
+
+$$\begin{array}{l}
+m<t\leq n\\
+\\
+\Vx[m+1]{}=V^{n-(m+1)}\\
+\Vx[2]{}=V^{n-(m+2)}\\
+\vdots\\
+\Vx[n]{}=V^{n-n}\\
+\end{array}$$
+
+Método Retrospectivo
+
+$$\begin{array}{l}
+0<t\leq m\\
+\\
+\Vx[0]{}=0 \\
+\Vx[1]{}=\Px[m]{\angl{n}}\sx**{\angl{1}}\\
+\Vx[2]{}=\Px[m]{\angl{n}}\sx**{\angl{2}}\\
+\vdots\\
+\Vx[t]{}=\Px[m]{\angl{n}}\sx**{\angl{t}}\\
+\vdots\\
+\Vx[m]{}=\Px[m]{\angl{n}}\sx**{\angl{m}}\\
+\end{array}$$
+
+$$\begin{array}{l}
+m<t\leq n\\
+\\
+\Vx[m+1]{}=\Px[m]{\angl{n}}\sx**{\angl{m}}(1+i)\\
+\Vx[2]{}=\Px[m]{\angl{n}}\sx**{\angl{m}}(1+i)^{2}\\
+\vdots\\
+\Vx[n]{}=\Px[m]{\angl{n}}\sx**{\angl{m}}(1+i)^{n-m}\\
+\end{array}$$
+
+#### Caso 4
+
+Método Prospectivo
+
+$$\begin{array}{l}
+\Vx[0]{}=0 \\
+\Vx[1]{}=V^{n-1}-(k)\Px{\angln}[(k)]\ax**{\angl{n-1}}[(k)]\\
+\Vx[2]{}=V^{n-2}-(k)\Px{\angln}[(k)]\ax**{\angl{n-2}}[(k)]\\
+\vdots\\
+\Vx[t]{}=V^{n-t}-(k)\Px{\angln}[(k)]\ax**{\angl{n-t}}[(k)]\\
+\vdots\\
+\Vx[n]{}=V^{n-n}-(k)\Px{\angln}[(k)]\ax**{\angl{n-n}}[(k)]=1\\
+\end{array}$$
+
+Método Retrospectivo
+
+$$\begin{array}{l}
+\Vx[0]{}=0 \\
+\Vx[1]{}=(k)\Px{\angln}[(k)]\sx**{\angl{n}}[(1)]\\
+\Vx[2]{}=(k)\Px{\angln}[(k)]\sx**{\angl{n}}[(2)]\\
+\vdots\\
+\Vx[t]{}=(k)\Px{\angln}[(k)]\sx**{\angl{n}}[(t)]\\
+\vdots\\
+\Vx[n]{}=(k)\Px{\angln}[(k)]\sx**{\angl{n}}[(n)]\\
+\end{array}$$
+
+#### Caso 5
+
+Método Prospectivo
+
+$$\begin{array}{l}
+0<t\leq m\\
+\\
+\Vx[0]{}=0 \\
+\Vx[1]{}=V^{n-1}-(k)\Px[m]{\angln}[(k)]\ax**{\angl{m-1}}[(k)]\\
+\Vx[2]{}=V^{n-2}-(k)\Px[m]{\angln}[(k)]\ax**{\angl{m-2}}[(k)]\\
+\vdots\\
+\Vx[t]{}=V^{n-t}-(k)\Px[m]{\angln}[(k)]\ax**{\angl{m-t}}[(k)]\\
+\vdots\\
+\Vx[n]{}=V^{n-n}-(k)\Px[m]{\angln}[(k)]\ax**{\angl{m-n}}[(k)]\\
+\end{array}$$
+
+$$\begin{array}{l}
+m<t\leq n\\
+\\
+\Vx[m+1]{}=V^{n-(m+1)}\\
+\Vx[2]{}=V^{n-(m+2)}\\
+\vdots\\
+\Vx[n]{}=V^{n-n}\\
+\end{array}$$
+
+Método Retrospectivo
+
+$$\begin{array}{l}
+0<t\leq m\\
+\\
+\Vx[0]{}=0 \\
+\Vx[1]{}=(k)\Px[m]{\angln}[(k)]\sx**{\angl{1}}[(k)]\\
+\Vx[2]{}=(k)\Px[m]{\angln}[(k)]\sx**{\angl{2}}[(k)]\\
+\vdots\\
+\Vx[t]{}=(k)\Px[m]{\angln}[(k)]\sx**{\angl{t}}[(k)]\\
+\vdots\\
+\Vx[m]{}=(k)\Px[m]{\angln}[(k)]\sx**{\angl{m}}[(k)]\\
+\end{array}$$
+
+$$\begin{array}{l}
+m<t\leq n\\
+\\
+\Vx[m+1]{}=(k)\Px[m]{\angln}[(k)]\sx**{\angl{m}}[(k)](1+i)\\
+\Vx[2]{}=(k)\Px[m]{\angln}[(k)]\sx**{\angl{m}}[(k)](1+i)^{2}\\
+\vdots\\
+\Vx[n]{}=(k)\Px[m]{\angln}[(k)]\sx**{\angl{m}}[(k)](1+i)^{n-m}\\
+\end{array}$$
+
+## Prima Comercial de un Título de Capitalización.
+
+## Valor de Rescate de un Título de Capitalización.
+
+
+

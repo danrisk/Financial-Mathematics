@@ -7,6 +7,7 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(lifecontingencies)
 ```
 
 ## Métodos de Amortización.
@@ -83,19 +84,62 @@ $$\begin{array}{rl}
 \end{array}$$
 
 
-Este cálculo lo vamos a verificar en R construyendo una funcion para el factor de actualización financiera cuyos parámetros sean el monto, tasa de interes y el número de períodos a considerar.
+Este cálculo lo vamos a verificar en R para ello utilizaremos un paquete especial para cálculo financieros y actuariales denominado
+```lifecontingencies```.
+
+$$\begin{chronology}[1]{0}{4}{\textwidth}
+         \event[1]{1}{300}
+         \event[2]{2}{280}
+         \event[3]{3}{360}
+         \event[4]{4}{330}
+      \end{chronology}$$
 
 ```{r}
-## to do ejemplo
+CF <- c(300, 280, 360, 330)
+YRS <- c(1,2,3,4)
+P <- c(1,1,1,1)
+presentValue(cashFlows = CF, interestRates = 0.1, timeIds = YRS, probabilities = P)
 ```
+
+
+$$\begin{chronology}[1]{0}{4}{\textwidth}
+         \event[1]{1}{200}
+         \event[2]{2}{200}
+         \event[3]{3}{300}
+         \event[4]{4}{625,9}
+      \end{chronology}$$
+
+```{r}
+CF <- c(200, 200, 300, 625.9)
+YRS <- c(1,2,3,4)
+P <- c(1,1,1,1)
+presentValue(cashFlows = CF, interestRates = 0.1, timeIds = YRS, probabilities = P)
+```
+
 
 nótese que a pesar de que el flujo de efectivo es distinto,  el valor actual es igual en ambos cásos, analicémos ahora a través de un esquema representativo de los elementos de amortización de deuda dicho esquema se denomina __Tabla de Amortización__, entonces:
 
 Ejemplo 1
 
-TO DO
+| Períodos (t) | Cuotas Capital | Intereses | Cuota Total | Saldo Insoluto |
+|:--------------:|:----------------:|:-----------:|:-------------:|:----------------:|
+| 0            | 0              | 0         | 0           | 1000           |
+| 1            | 200            | 100       | 300         | 800            |
+| 2            | 200            | 80        | 280         | 600            |
+| 3            | 300            | 60        | 360         | 300            |
+| 4            | 300            | 30        | 330         | 0              |
 
 Ejemplo 2
+
+| Períodos (t) | Cuotas Capital | Intereses | Cuota Total | Saldo Insoluto |
+|:--------------:|:----------------:|:-----------:|:-------------:|:----------------:|
+| 0            | 0              | 0         | 0           | 1000           |
+| 1            | 100            | 100       | 200         | 900            |
+| 2            | 110            | 90        | 200         | 790            |
+| 3            | 221            | 79        | 300         | 569            |
+| 4            | 569            | 56,9      | 625,9       | 0              |
+
+
 
 En el gráfico se aprecia la velocidad con la que el pago es amortizado, nóte que cuando los pagos de capital son mayores la deuda es amortizada más velozmente y se cancelan menos intereses (linea azul), por el contrario si se amortiza el capital más lenta o conservadoramente se amortiza de forma más costosa  o sea se pagan más intereses sobre el mismo valor de capital.  
 
@@ -381,7 +425,7 @@ Nótese que:
 $i$: Tasa de Interés Remunerativa (Tasa Activa).  
 $j$: Tasa de Interés Reproductiva (Tasa Pasiva).
 
-ahora calculemos la cuota $K$ que es el total de desembolso mensual considerando el pago de intereses y el depósito del fondo.
+ahora calculemos la cuota $K$ que es el total de desembolso anual considerando el pago de intereses y el depósito del fondo.
 
 $$\begin{array}{rl}
 K_1\displaystyle&=I+Q=M*i + \frac{M}{\sx{\angl{n}}j}=SI_0\left[i+\frac{1}{\sx{\angl{n}}j}\right]\\
@@ -389,3 +433,22 @@ K_2\displaystyle&=I+Q=M*i + \frac{M}{\sx{\angl{n}}j}=SI_0\left[i+\frac{1}{\sx{\a
 \displaystyle& \vdots\\
 K_n\displaystyle&=I+Q+M=M*i + \frac{M}{\sx{\angl{n}}j}+M=SI_0\left[1+i+\frac{1}{\sx{\angl{n}}j}\right]\\
 \end{array}$$
+
+
+### Tabla de Amortización
+
+El Saldo Insoluto para cualquier momento $t$ bajo el método Americano viene dado por:
+
+$$SI_{t}= M - \frac{M}{\sx{\angl{n}}j}\times \sx{\angl{t}}j = M[1- \frac{\sx{\angl{t}}j}{\sx{\angl{n}}j}]$$
+
+Igualmente 
+
+$$SI_{t-1}= M[1- \frac{\sx{\angl{t-1}}j}{\sx{\angl{n}}j}]$$
+
+La Cuota de Capital podemos obtenerla a través de diferencia de saldos insolutos, esto es:
+
+$$CC_{t}= SI_{t-1}-SI_{t}= M\left[\frac{\sx{\angl{t-1}}j-\sx{\angl{t}}j}{\sx{\angl{n}}j}\right] = \frac{ M(1+j)^{t-1}}{\sx{\angl{n}}j}$$
+
+Finalmente el interés neto cancelado en la n-ésima cuota viene dado por:
+
+$$I_{t}=M.i - \frac{M.\sx{\angl{t-1}}j}{\sx{\angl{n}}j} \times j = M \left[i- \frac{(1+j)^{t-1}-1}{\sx{\angl{n}}j}\right]$$
