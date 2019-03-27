@@ -93,6 +93,10 @@ $$\begin{chronology}[1]{0}{4}{\textwidth}
          \event[3]{3}{360}
          \event[4]{4}{330}
       \end{chronology}$$
+      
+      
+      
+
 
 ```{r}
 CF <- c(300, 280, 360, 330)
@@ -109,6 +113,15 @@ $$\begin{chronology}[1]{0}{4}{\textwidth}
          \event[4]{4}{625,9}
       \end{chronology}$$
 
+
+$$\begin{tikzpicture}
+  \draw[line width=1pt] (0,0) -- node[below=1mm,pos=0.6,scale=2] {$\cdots$} (10,0)node[right=4mm]{(periods)};
+  \foreach \x/\y in {0/0,1/1,2/2,3/3,9/$n-1$,10/$n$}{
+    \draw[line width=1pt] (\x,-2mm)node[below](\x){\strut\y} -- (\x,2mm)node[above]{$\$ 1$};
+    }
+    \draw[-latex] (0,-7mm) -- +(0,-10mm)node[below]{$A_{ni}$};
+    \draw[-latex] (10,-7mm) -- +(0,-10mm)node[below]{$S_{ni}$};
+\end{tikzpicture}$$
 ```{r}
 CF <- c(200, 200, 300, 625.9)
 YRS <- c(1,2,3,4)
